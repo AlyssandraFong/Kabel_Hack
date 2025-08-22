@@ -1,0 +1,68 @@
+{
+  "main": [
+    {
+      "name": "Home",
+      "url": "/"
+    },
+    {
+      "name": "About Us",
+      "url": "/about-us"
+    },
+    {
+      "name": "Buy Cars",
+      "url": "/buy-cars"
+    },
+    {
+      "name": "Sell Cars",
+      "url": "/sell-cars"
+    },
+    {
+      "name": "Finance",
+      "url": "/finance"
+    },
+    {
+      "name": "Products",
+      "url": "/products"
+    },
+    {
+      "name": "Contact",
+      "url": "/contact"
+    }
+  ],
+  "footer": [
+    {
+      "name": "About Us",
+      "url": "/about-us"
+    },
+    {
+      "name": "Buy Cars",
+      "url": "/buy-cars"
+    },
+    {
+      "name": "Sell Cars",
+      "url": "/sell-cars"
+    },
+    {
+      "name": "Finance",
+      "url": "/finance"
+    },
+    {
+      "name": "Products",
+      "url": "/products"
+    },
+    {
+      "name": "Contact",
+      "url": "/contact"
+    }
+  ],
+  "footerCopyright": [
+    {
+      "name": "Privacy & Policy",
+      "url": "/privacy-policy"
+    },
+    {
+      "name": "Terms of Service",
+      "url": "/terms-services"
+    }
+  ]
+}

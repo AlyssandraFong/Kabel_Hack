@@ -57,8 +57,7 @@ export default function RootLayout({
         <TwSizeIndicator />
         <Providers>
           <Navbar />
-          {/* Add top padding so content doesn't overlap navbar */}
-          <main className="pt-20 px-4 md:px-6 lg:px-8">{children}</main>
+          <main className="w-full">{children}</main>
         </Providers>
       </body>
     </html>

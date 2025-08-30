@@ -67,7 +67,7 @@ export default function BusinessKPIPage() {
     "backdrop-blur-md hover:!bg-white/30 dark:hover:!bg-white/20 hover:scale-105 hover:shadow-xl dark:hover:shadow-white/10";
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-200 via-emerald-200 to-teal-300 transition-colors">
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 via-emerald-100 to-teal-100 transition-colors">
 
       <div className="pt-30 px-4 md:px-12 lg:px-24 pb-12">
         {/* Page Header */}

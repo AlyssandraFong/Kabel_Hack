@@ -21,10 +21,6 @@
       "url": "/finance"
     },
     {
-      "name": "Products",
-      "url": "/products"
-    },
-    {
       "name": "Contact",
       "url": "/contact"
     }
@@ -45,10 +41,6 @@
     {
       "name": "Finance",
       "url": "/finance"
-    },
-    {
-      "name": "Products",
-      "url": "/products"
     },
     {
       "name": "Contact",

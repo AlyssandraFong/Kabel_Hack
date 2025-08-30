@@ -1,0 +1,352 @@
+// Car data mapping: Make -> Models
+export const carData: Record<string, string[]> = {
+  Honda: [
+    "City V i-VTEC",
+    "City E i-VTEC",
+    "City V Sensing",
+    "City S+ i-VTEC",
+    "City S i-VTEC",
+    "City V(sensing) Sensing",
+    "City RS i-VTEC",
+    "Civic S i-VTEC",
+    "Civic TC VTEC",
+    "Civic TC VTEC Premium",
+    "Civic RS VTEC",
+    "Civic E VTEC",
+    "Accord i-VTEC VTi-L",
+    "Accord TC Premium",
+    "Accord i-VTEC",
+    "CR-V TC-P VTEC",
+    "CR-V TC VTEC",
+    "CR-V i-VTEC",
+    "CR-V V",
+    "HR-V E",
+    "HR-V i-VTEC V",
+    "HR-V i-VTEC E",
+    "HR-V i-VTEC S",
+    "HR-V i-VTEC RS",
+    "HR-V e:HEV RS",
+    "HR-V S",
+    "HR-V V",
+    "HR-V i-VTEC Hybrid",
+    "Jazz E i-VTEC",
+    "Jazz S i-VTEC",
+    "Jazz V i-VTEC",
+    "Jazz i-VTEC",
+    "N-Box Custom G L",
+    "WR-V RS",
+    "BR-V V i-VTEC",
+    "BR-V E i-VTEC",
+    "Stream i-VTEC RSZ",
+    "Stream i-VTEC"
+  ],
+
+  Mazda: [
+    "CX-5 SKYACTIV-G GLS",
+    "CX-5 SKYACTIV-G High",
+    "CX-5 2.5G 4WD HIGH T/C",
+    "CX-5 SKYACTIV-G GL",
+    "CX-5 SKYACTIV-G High Spec",
+    "CX-8 SKYACTIV-G Mid",
+    "CX-8 SKYACTIV-G High",
+    "2 SKYACTIV-G",
+    "2 SKYACTIV-G Mid Spec",
+    "2 SKYACTIV-G GVC Plus",
+    "3 SKYACTIV-G High",
+    "3 SKYACTIV-G High Plus",
+    "3 SKYACTIV-G Ignite Edition",
+    "CX-3 SKYACTIV",
+    "CX-3 SKYACTIV High",
+    "CX-3 SKYACTIV GVC",
+    "CX-30 SKYACTIV-G High+ Premium",
+    "CX-30 SKYACTIV-G High",
+    "CX-30 SKYACTIV-G"
+  ],
+
+  Nissan: [
+    "Almera E",
+    "Almera V",
+    "Almera VL",
+    "Almera VLP",
+    "Serena S-Hybrid High-Way Star Premium",
+    "Serena S-Hybrid High-Way Star",
+    "Serena S-Hybrid High-Way Star Two-Tone Color",
+    "Serena S-Hybrid High-Way Star Impul J Impul",
+    "Grand Livina Comfort",
+    "Navara PRO-4X Dual Cab",
+    "Navara SE Dual Cab",
+    "NV200 Panel",
+    "NV350 Urvan",
+    "Sylphy VL",
+    "Sylphy XVT Premium",
+    "X-Trail",
+    "X-Trail Mid",
+    "X-Trail 4WD"
+  ],
+
+  Perodua: [
+    "Ativa AV",
+    "Ativa H",
+    "Ativa X",
+    "Axia Advance",
+    "Axia G",
+    "Axia SE",
+    "Axia GXtra",
+    "Axia Style",
+    "Axia AV",
+    "Axia X",
+    "Bezza Advance Premium",
+    "Bezza X Premium",
+    "Bezza G Standard",
+    "Bezza G",
+    "Bezza X",
+    "Bezza Advance",
+    "Myvi G",
+    "Myvi AV",
+    "Myvi H",
+    "Myvi EZI",
+    "Myvi SE",
+    "Myvi Advance",
+    "Myvi X",
+    "Alza EZi",
+    "Alza SE",
+    "Alza Advance",
+    "Alza EZ",
+    "Alza Ez",
+    "Alza AV",
+    "Alza H",
+    "Alza X",
+    "Aruz AV",
+    "Aruz X",
+    "Viva EZ"
+  ],
+
+  Proton: [
+    "Persona Standard",
+    "Persona SV",
+    "Persona Executive",
+    "Persona Premium",
+    "Persona Elegance Standard",
+    "Exora Bold CFE Premium",
+    "Exora Bold CFE Standard",
+    "Exora Turbo Premium",
+    "Exora Turbo Executive",
+    "Iriz R3",
+    "Iriz Executive",
+    "Iriz Standard",
+    "Iriz Premium",
+    "Iriz Active",
+    "Saga Executive",
+    "Saga Premium",
+    "Saga Standard",
+    "Saga Anniversary Edition",
+    "Saga Premium S",
+    "Saga FLX SE",
+    "Saga SV",
+    "Saga FLX Plus",
+    "Saga FLX Standard",
+    "Preve Executive",
+    "Ertiga VVT Executive",
+    "Ertiga VVT Plus Executive",
+    "S70 Flagship",
+    "S70 Flagship X",
+    "X50 TGDI Flagship",
+    "X50 Standard",
+    "X50 Executive",
+    "X50 Premium",
+    "X70 TGDI Executive",
+    "X70 TGDI Premium",
+    "X70 TGDI Premium X",
+    "X90 Flagship"
+  ],
+
+  Toyota: [
+    "Alphard G S C Package",
+    "Avanza G",
+    "Avanza S",
+    "C-HR",
+    "Camry G X",
+    "Camry E",
+    "Camry V",
+    "Camry G",
+    "Corolla Cross V",
+    "Corolla Cross Hybrid",
+    "Corolla Altis V",
+    "Corolla Altis G",
+    "Estima Aeras",
+    "Fortuner VRZ",
+    "Fortuner SRZ",
+    "Harrier Elegance",
+    "Harrier Premium",
+    "Harrier GS",
+    "Harrier ELEGANCE",
+    "Harrier",
+    "Hiace Window",
+    "Hiace Panel",
+    "Hilux L-Edition Dual Cab",
+    "Hilux GR Sport Dual Cab",
+    "Hilux G Dual Cab",
+    "Hilux Black Edition Dual Cab",
+    "Hilux Rogue Dual Cab",
+    "Hilux E Dual Cab",
+    "Hilux Single Cab",
+    "Hilux G TRD Sportivo VNT Dual Cab",
+    "Hilux V Dual Cab",
+    "Innova G",
+    "Innova Zenix V",
+    "Rush S",
+    "Sienta V",
+    "Vellfire Z G Edition",
+    "Vellfire Z Golden Eyes",
+    "Veloz",
+    "Vios E",
+    "Vios TRD Sportivo",
+    "Vios G",
+    "Vios J",
+    "Vios GX",
+    "Vios G Limited",
+    "Vios GR-S",
+    "Yaris E",
+    "Yaris G"
+  ],
+
+  BMW: [
+    "118i M Sport",
+    "218i Active Tourer",
+    "218i M Sport",
+    "320i Sport",
+    "320i M Sport",
+    "330e M Sport",
+    "330i M Sport Driving Assist Pack",
+    "X1 sDrive20i xLine",
+    "X3 xDrive30i M Sport"
+  ],
+
+  "Mercedes-Benz": [
+    "A180 SE",
+    "A180 Urban Line",
+    "A200 Progressive Line",
+    "A250 AMG Line",
+    "A250 4MATIC AMG Line",
+    "B180",
+    "C200 Avantgarde",
+    "C200 AMG Line",
+    "C300 AMG Line",
+    "E200 Avantgarde",
+    "E200 SportStyle Avantgarde",
+    "GLA200 Urban Line",
+    "GLA200 Night Edition",
+    "GLA200 Style",
+    "GLA250 4MATIC",
+    "GLC200 Exclusive",
+    "GLC250 4MATIC AMG Line"
+  ],
+
+  MINI: [
+    "3 Door Cooper S",
+    "5 Door Cooper S",
+    "Cooper S"
+  ],
+
+  Mitsubishi: [
+    "ASX",
+    "Lancer GT Bodykit",
+    "Outlander",
+    "Xpander",
+    "Triton VGT Adventure X Dual Cab",
+    "Triton Quest Dual Cab",
+    "Triton VGT Dual Cab"
+  ],
+
+  Subaru: [
+    "XV P",
+    "XV GT Edition EyeSight",
+    "XV GT Edition",
+    "Forester L EyeSight",
+    "Forester P"
+  ],
+
+  Suzuki: [
+    "Jimny Sierra JC Package",
+    "Jimny JLX",
+    "Swift GX",
+    "Swift GLX-S",
+    "Swift GL",
+    "Swift"
+  ],
+
+  Volkswagen: [
+    "Arteon R-line 4MOTION Fastback",
+    "Golf GTi",
+    "Passat 380 TSI Highline",
+    "Passat TSI",
+    "Passat 280 TSI Comfortline",
+    "Polo TSI",
+    "Polo",
+    "Polo Comfortline",
+    "Polo GTi",
+    "Tiguan 280 TSI Highline",
+    "Tiguan 280 TSI Comfortline",
+    "Tiguan Allspace R-Line 4MOTION",
+    "Tiguan Allspace Elegance",
+    "Tiguan Allspace Highline",
+    "Vento Comfort",
+    "Vento TSI Highline"
+  ],
+
+  Kia: [
+    "Carnival YP",
+    "Carnival",
+    "Cerato",
+    "Picanto GT Line",
+    "Picanto",
+    "Picanto EX",
+    "Rio SX",
+    "Rio EX",
+    "Sportage"
+  ],
+
+  Lexus: [
+    "ES250 Luxury",
+    "RX200t Luxury",
+    "RX300 F SPORT",
+    "RX350 F Sport",
+    "NX200T",
+    "NX350 F Sport"
+  ],
+
+  Ford: [
+    "Fiesta Sport",
+    "Ranger Wildtrak High Rider Dual Cab",
+    "EcoSport Titanium",
+    "Focus Ecoboost Sport Plus"
+  ],
+
+  Chery: [
+    "Omoda 5 H",
+    "Tiggo 8 Pro Premium"
+  ],
+
+  Daihatsu: [
+    "Gran Max Panel"
+  ],
+
+  Hyundai: [
+    "Kona Turbo"
+  ],
+
+  Isuzu: [
+    "D-Max Auto Plus Dual Cab",
+    "D-Max Premium Dual Cab",
+    "D-Max V-Cross Z-Prestige Dual Cab",
+    "D-Max V-Cross X-Terrain Dual Cab"
+  ],
+
+  Renault: [
+    "Captur TCe 120"
+  ],
+
+  JAECOO: [
+    "J7"
+  ]
+};

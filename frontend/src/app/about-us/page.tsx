@@ -11,8 +11,8 @@ import { FaBoxOpen, FaCheckCircle, FaHeadset } from "react-icons/fa";
 
 const About = () => {
   const data: RegularPage = getListPage("about/_index.md");
-
   const { frontmatter } = data;
+
   const {
     title,
     about_us,
@@ -28,58 +28,47 @@ const About = () => {
   } = frontmatter;
 
   return (
-    <>
+    <div className="min-h-screen bg-gradient-gray-1000 dark:from-darkmode dark:via-darkmode-light dark:to-darkmode">
       <SeoMeta {...frontmatter} />
-
       <PageHeader title={title} />
 
-      <section>
-        <div className="container">
+      {/* About Us Section */}
+      <section className="py-16">
+        <div className="container space-y-20">
           {about_us?.map((section: AboutUsItem, index: number) => (
             <div
-              className={`lg:flex gap-8 mt-14 lg:mt-28`}
               key={section?.title}
+              className={`flex flex-col-reverse lg:flex-row items-center gap-12 ${
+                index % 2 !== 0 ? "lg:flex-row-reverse" : ""
+              }`}
             >
-              {index % 2 === 0 ? (
-                <>
+              {/* Text */}
+              <div className="lg:w-3/5 space-y-5 bg-light dark:bg-darkmode-light backdrop-blur-lg p-8 rounded-2xl shadow-lg">
+                <h2 className="text-3xl font-bold">{section?.title}</h2>
+                <p
+                  className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed"
+                  dangerouslySetInnerHTML={markdownify(section?.content)}
+                />
+              </div>
+
+              {/* Image */}
+              <div className="lg:w-2/5 flex justify-center">
+                <div className="overflow-hidden rounded-2xl shadow-xl">
                   <ImageFallback
-                    className="rounded-md mx-auto"
+                    className="w-full h-auto max-w-[450px] object-cover transition-transform duration-500 hover:scale-105"
                     src={section?.image}
-                    width={536}
-                    height={449}
+                    width={650}
+                    height={500}
                     alt={section?.title}
                   />
-                  <div className="mt-10 lg:mt-0">
-                    <h2>{section?.title}</h2>
-                    <p
-                      className="mt-4 text-text-light dark:text-darkmode-text-light leading-7"
-                      dangerouslySetInnerHTML={markdownify(section?.content)}
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div>
-                    <h2>{section.title}</h2>
-                    <p
-                      className="mt-4 text-text-light dark:text-darkmode-text-light leading-7"
-                      dangerouslySetInnerHTML={markdownify(section.content)}
-                    />
-                  </div>
-                  <ImageFallback
-                    className="rounded-md mx-auto mt-10 lg:mt-0"
-                    src={section.image}
-                    width={536}
-                    height={449}
-                    alt={section.title}
-                  />
-                </>
-              )}
+                </div>
+              </div>
             </div>
           ))}
         </div>
       </section>
 
+      {/* Testimonials */}
       {testimonials_section_enable && (
         <Testimonials
           title={testimonials_section_title!}
@@ -87,87 +76,103 @@ const About = () => {
         />
       )}
 
-      <section>
-        <div className="container">
-          <div className="text-center">
-            <h2>Our Staff</h2>
+      {/* Staff Section */}
+      {staff_section_enable && (
+        <section className="py-20">
+          <div className="container">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold">Our Staff</h2>
 
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-14">
-              {staff_section_enable &&
-                staff!.map((s, idx) => (
-                  <div key={idx} className="border border-border rounded-lg">
-                    <div className="py-6 space-y-2">
-                      <h3 className="h4">{s.name}</h3>
-                      <p className="text-text-dark dark:text-darkmode-text-light">{s.designation}</p>
-                    </div>
-                    <div className="bg-light rounded-b-xl mx-auto">
-                      <ImageFallback
-                        src={s.avatar}
-                        alt={`Staff-${s.name}`}
-                        width={290}
-                        height={250}
-                        className="mx-auto w-full h-[250px] rounded-b-xl overflow-hidden"
-                      />
+              <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-14">
+                {staff!.map((s, idx) => (
+                  <div
+                    key={idx}
+                    className="rounded-2xl shadow-lg hover:shadow-xl transition duration-300 overflow-hidden bg-white/80 dark:bg-gray-800/70 backdrop-blur-md"
+                  >
+                    <ImageFallback
+                      src={s.avatar}
+                      alt={`Staff-${s.name}`}
+                      width={400}
+                      height={350}
+                      className="w-full h-[350px] object-cover"
+                    />
+                    <div className="py-6 px-4 text-center space-y-2">
+                      <h3 className="text-xl font-semibold">{s.name}</h3>
+                      <p className="text-gray-600 dark:text-gray-300">
+                        {s.designation}
+                      </p>
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Reasons Section */}
+      <section className="py-20">
+        <div className="container">
+          <div className="px-8 py-16 text-center rounded-2xl shadow-xl bg-light dark:bg-darkmode-light backdrop-blur-lg">
+            <h2 className="text-3xl font-bold">Reasons to choose us</h2>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 mt-14">
+              {[
+                {
+                  icon: <FaHeadset size={52} />,
+                  title: "24/7 Friendly Support",
+                  desc: "Our support team is always ready for you, 7 days a week.",
+                },
+                {
+                  icon: <FaBoxOpen size={52} />,
+                  title: "Hassle-Free Transactions",
+                  desc: "We make buying, selling, or financing your car simple, fast, and transparent.",
+                },
+                {
+                  icon: <FaCheckCircle size={52} />,
+                  title: "Trusted Quality & Assurance",
+                  desc: "Every service and vehicle goes through thorough checks to ensure reliability and peace of mind.",
+                },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="p-6 rounded-2xl bg-white dark:bg-gray-800/70 shadow hover:shadow-xl transition"
+                >
+                  <div className="flex justify-center text-primary">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-xl font-semibold mt-6 mb-3">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section">
+      {/* FAQ Section */}
+      <section className="py-20">
         <div className="container">
-          <div className="bg-light px-7 py-20 dark:bg-darkmode-light text-center rounded-md">
-            <h2>Reasons to choose us</h2>
-
-            <div className="row justify-center gap-6 mt-14">
-              <div className="col-6 md:col-5 lg:col-3">
-                <div className="flex justify-center">
-                  <FaHeadset size={48} />
-                </div>
-                <h3 className="md:h4 mt-6 mb-4">24/7 Friendly Support</h3>
-                <p>Our support team always ready for you to 7 days a week</p>
-              </div>
-
-              <div className="col-6 md:col-5 lg:col-3">
-                <div className="flex justify-center">
-                  <FaBoxOpen size={48} />
-                </div>
-                <h3 className="md:h4 mt-6 mb-4">Hassle-Free Transactions</h3>
-                <p>
-                  We make buying, selling, or financing your car simple, fast, and transparent.
-                </p>
-              </div>
-
-              <div className="col-6 md:col-5 lg:col-3">
-                <div className="flex justify-center">
-                  <FaCheckCircle size={48} />
-                </div>
-                <h3 className="md:h4 mt-6 mb-4">Trusted Quality & Assurance</h3>
-                <p>
-                  Every service and vehicle goes through thorough checks to ensure reliability and peace of mind.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div className="container">
-          <div className="bg-light px-7 lg:px-32 py-20 dark:bg-darkmode-light mb-14 xl:mb-28 rounded-b-md">
-            <div className="row">
-              <div className="md:col-5 mx-auto space-y-5 mb-10 md:mb-0">
-                <h1 dangerouslySetInnerHTML={markdownify(faq_section_title!)} />
+          <div className="px-8 py-16 rounded-2xl shadow-xl bg-white dark:bg-gray-800">
+            <div className="grid md:grid-cols-2 gap-10">
+              {/* Left column */}
+              <div className="space-y-5">
+                <h1
+                  className="text-3xl font-bold"
+                  dangerouslySetInnerHTML={markdownify(faq_section_title!)}
+                />
                 <p
                   dangerouslySetInnerHTML={markdownify(faq_section_subtitle!)}
-                  className="md:text-lg"
+                  className="md:text-lg text-gray-600 dark:text-gray-300"
                 />
 
                 {button?.enable && (
                   <Link
-                    className="btn btn-sm md:btn-lg btn-primary font-medium"
+                    className="inline-block px-6 py-3 rounded-xl bg-black text-white font-medium shadow hover:opacity-90 transition"
                     href={button.link}
                   >
                     {button.label}
@@ -175,14 +180,16 @@ const About = () => {
                 )}
               </div>
 
-              <div className="md:col-7">
+              {/* Right column */}
+              <div>
                 <Expandable faqs={faqs!} />
               </div>
             </div>
           </div>
         </div>
       </section>
-    </>
+
+    </div>
   );
 };
 

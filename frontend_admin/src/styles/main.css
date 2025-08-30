@@ -11,6 +11,11 @@
 
 @layer base {
   @import "./base.css";
+
+  /* 👇 Add this */
+  html {
+    font-size: 15px; /* default is 16px */
+  }
 }
 
 @layer components {

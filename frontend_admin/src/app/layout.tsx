@@ -1,10 +1,6 @@
-
-import OpenCart from "@/components/cart/OpenCart";
-import config from "@/config/config.json";
 import theme from "@/config/theme.json";
 import TwSizeIndicator from "@/helpers/TwSizeIndicator";
-import Footer from "@/partials/Footer";
-import Header from "@/partials/Header";
+import { Navbar } from "@/partials/NavigationBar";
 import Providers from "@/partials/Providers";
 import "@/styles/main.css";
 import React from "react";
@@ -26,6 +22,9 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
+
+        {/* {favicon} */}
+        <link rel="icon" href="/favicon.ico" />  
 
         {/* theme meta */}
         <meta name="theme-name" content="commerceplate" />
@@ -57,12 +56,9 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
         <TwSizeIndicator />
         <Providers>
-          <Header>
-            <OpenCart />
-            {/* <Cart /> */}
-          </Header>
-          <main>{children}</main>
-          <Footer />
+          <Navbar />
+          {/* Add top padding so content doesn't overlap navbar */}
+          <main className="pt-20 px-4 md:px-6 lg:px-8">{children}</main>
         </Providers>
       </body>
     </html>

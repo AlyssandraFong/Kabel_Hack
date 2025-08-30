@@ -12,4 +12,4 @@ const PriceSchema = new Schema<IPrice>({
   predicted: { type: Number, required: true },
 });
 
-export default model<IPrice>("Price", PriceSchema);
+export default model<IPrice>("pricing", PriceSchema, "pricing");

@@ -5,34 +5,44 @@ import { ResponsiveBar } from "@nivo/bar";
 import { ResponsiveLine } from "@nivo/line";
 import { ResponsivePie } from "@nivo/pie";
 
-const rawDealerRetentionData = [
-  { id: "Repeat Dealers", value: 65 },
-  { id: "One-time Dealers", value: 35 },
-];
-
 const chartColors = ["#3B82F6", "#10B981", "#F59E0B"];
 
-export default function BusinessKPIPage() {
-  const [grossMarginData, setGrossMarginData] = useState<any[]>([]);
-  const [daysToSellData, setDaysToSellData] = useState<any[]>([]);
-  const [selectedCar, setSelectedCar] = useState("all");
-  const [selectedDealer, setSelectedDealer] = useState("all");
+interface GrossMargin {
+  car: string;
+  dealer: string;
+  acquisition: number;
+  resale: number;
+  reconditioning: number;
+  [key: string]: string | number; // Add index signature for Nivo BarDatum compatibility
+}
 
-  // Fetch data from API
+interface DaysToSell {
+  car: string;
+  days: number;
+}
+
+interface DealerRetention {
+  id: string;
+  value: number;
+}
+
+export default function BusinessKPIPage() {
+  const [grossMarginData, setGrossMarginData] = useState<GrossMargin[]>([]);
+  const [daysToSellData, setDaysToSellData] = useState<DaysToSell[]>([]);
+  const [dealerRetentionData, setDealerRetentionData] = useState<DealerRetention[]>([]);
+
+  const glassClass =
+    "!rounded-2xl !transition-all !duration-200 !ease-out relative flex flex-col gap-3 px-4 py-3 " +
+    "bg-white/20 dark:bg-gray-800/30 border border-white/20 dark:border-white/10 " +
+    "backdrop-blur-md hover:!bg-white/30 dark:hover:!bg-white/20 hover:scale-105 hover:shadow-xl dark:hover:shadow-white/10";
+
+  // Fetch Gross Margins
   useEffect(() => {
     async function fetchGrossMargins() {
       try {
         const res = await fetch("/api/grossMargins");
-        const data = await res.json();
+        const data: GrossMargin[] = await res.json();
         setGrossMarginData(data);
-
-        // Convert to days to sell data
-        const daysData = data.map((item: any) => ({
-          car: item.car,
-          days: item.days || 0, // add days field if exists
-          dealer: item.dealer,
-        }));
-        setDaysToSellData(daysData);
       } catch (error) {
         console.error("Failed to fetch gross margins:", error);
       }
@@ -40,93 +50,81 @@ export default function BusinessKPIPage() {
     fetchGrossMargins();
   }, []);
 
-  // Filtering
-  const filteredGrossMarginData = grossMarginData.filter(
-    (item) =>
-      (selectedCar === "all" || item.car === selectedCar) &&
-      (selectedDealer === "all" || item.dealer === selectedDealer)
-  );
+  // Fetch DaysToSell
+  useEffect(() => {
+    async function fetchDaysToSell() {
+      try {
+        const res = await fetch("/api/daysToSells");
+        const data: DaysToSell[] = await res.json();
+        setDaysToSellData(data);
+      } catch (error) {
+        console.error("Failed to fetch DaysToSell data:", error);
+      }
+    }
+    fetchDaysToSell();
+  }, []);
 
-  const filteredDaysToSellData = [
-    {
-      id: "Days to Sell",
-      data: daysToSellData
-        .filter(
-          (item) =>
-            (selectedCar === "all" || item.car === selectedCar) &&
-            (selectedDealer === "all" || item.dealer === selectedDealer)
-        )
-        .map((item) => ({ x: item.car, y: item.days })),
-    },
-  ];
+  // Fetch Dealer Retention
+  useEffect(() => {
+    async function fetchDealers() {
+      try {
+        const res = await fetch("/api/cars");
+        const cars = await res.json();
+        const dealerCounts: Record<string, number> = {};
+        cars.forEach((car: { dealer: string }) => {
+          dealerCounts[car.dealer] = (dealerCounts[car.dealer] || 0) + 1;
+        });
+        const repeatDealers = Object.values(dealerCounts).filter((v) => v > 1).length;
+        const oneTimeDealers = Object.values(dealerCounts).filter((v) => v === 1).length;
+        setDealerRetentionData([
+          { id: "Repeat Dealers", value: repeatDealers },
+          { id: "One-time Dealers", value: oneTimeDealers },
+        ]);
+      } catch (error) {
+        console.error("Failed to fetch dealers:", error);
+      }
+    }
+    fetchDealers();
+  }, []);
 
   // Summary Metrics
-  const totalGrossMargin = filteredGrossMarginData.reduce(
+  const totalGrossMargin = grossMarginData.reduce(
     (sum, item) => sum + (item.resale - item.acquisition - item.reconditioning),
     0
   );
+
   const averageDaysToSell =
-    filteredDaysToSellData[0].data.reduce((sum, item) => sum + item.y, 0) /
-    (filteredDaysToSellData[0].data.length || 1);
+    daysToSellData.reduce((sum, item) => sum + item.days, 0) /
+    (daysToSellData.length || 1);
 
-  const glassClass =
-    "!rounded-2xl !transition-all !duration-200 !ease-out relative flex flex-col gap-3 px-4 py-3 cursor-default select-none outline-none " +
-    "bg-white/20 dark:bg-gray-800/30 border border-white/20 dark:border-white/10 " +
-    "backdrop-blur-md hover:!bg-white/30 dark:hover:!bg-white/20 hover:scale-105 hover:shadow-xl dark:hover:shadow-white/10";
+  const repeatDealer = dealerRetentionData.find((d) => d.id === "Repeat Dealers")?.value || 0;
+  const oneTimeDealer = dealerRetentionData.find((d) => d.id === "One-time Dealers")?.value || 0;
+  const totalDealers = repeatDealer + oneTimeDealer;
+  const repeatDealerPercentage = totalDealers > 0 ? Math.round((repeatDealer / totalDealers) * 100) : 0;
 
-  const filterGlassClass =
-    "!rounded-2xl !transition-all !duration-200 !ease-out relative flex flex-col gap-3 px-4 py-3 cursor-default select-none outline-none " +
-    "bg-white/20 dark:bg-gray-800/30 border border-white/20 dark:border-white/10 ";
+  // Prepare DaysToSell data for Nivo line chart
+  const lineChartData = [
+    {
+      id: "Days to Sell",
+      data: daysToSellData.map((item) => ({
+        x: item.car,
+        y: item.days,
+      })),
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-emerald-100 to-teal-100 transition-colors">
       <div className="pt-30 px-4 md:px-12 lg:px-24 pb-12">
-        {/* Page Header */}
+        {/* Header */}
         <header className="mb-8">
-          <h1 className="text-4xl font-extrabold tracking-tight text-blue-600 dark:text-emerald-400">
+          <h1 className="text-4xl font-extrabold text-blue-600 dark:text-emerald-400">
             Business KPI Dashboard
           </h1>
           <p className="text-slate-600 dark:text-slate-400 mt-2">
             Monitor key business performance metrics at a glance
           </p>
         </header>
-
-        {/* Filters */}
-        <div className="flex flex-wrap gap-4 mb-8">
-          <div className={`${filterGlassClass} w-52`}>
-            <label className="text-sm font-medium mb-1">Filter by Car</label>
-            <select
-              value={selectedCar}
-              onChange={(e) => setSelectedCar(e.target.value)}
-              className="w-full bg-transparent border-none focus:ring-0 text-gray-700 dark:text-gray-300"
-            >
-              <option value="all">All Cars</option>
-              {grossMarginData.map((item) => (
-                <option key={item.car} value={item.car}>
-                  {item.car}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className={`${filterGlassClass} w-52`}>
-            <label className="text-sm font-medium mb-1">Filter by Dealer</label>
-            <select
-              value={selectedDealer}
-              onChange={(e) => setSelectedDealer(e.target.value)}
-              className="w-full bg-transparent border-none focus:ring-0 text-gray-700 dark:text-gray-300"
-            >
-              <option value="all">All Dealers</option>
-              {[...new Set(grossMarginData.map((item) => item.dealer))].map(
-                (dealer) => (
-                  <option key={dealer} value={dealer}>
-                    {dealer}
-                  </option>
-                )
-              )}
-            </select>
-          </div>
-        </div>
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
@@ -136,73 +134,53 @@ export default function BusinessKPIPage() {
               ${totalGrossMargin.toLocaleString()}
             </h3>
           </div>
-
           <div className={glassClass}>
             <p className="text-sm text-gray-500 dark:text-gray-400">Average Days to Sell</p>
             <h3 className="text-2xl font-bold text-blue-600 dark:text-emerald-400">
               {averageDaysToSell.toFixed(1)} days
             </h3>
           </div>
-
           <div className={glassClass}>
             <p className="text-sm text-gray-500 dark:text-gray-400">Dealer Retention</p>
             <h3 className="text-2xl font-bold text-blue-600 dark:text-emerald-400">
-              {rawDealerRetentionData.find((d) => d.id === "Repeat Dealers")?.value}%
+              {repeatDealerPercentage}%
             </h3>
           </div>
         </div>
 
-        {/* Charts Grid */}
+        {/* Charts */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           {/* Gross Margin */}
           <div className={`${glassClass} p-6`}>
             <h2 className="text-lg font-semibold text-blue-600 dark:text-emerald-400 mb-2">
               Gross Margin per Car
             </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-              Acquisition vs resale vs reconditioning cost
-            </p>
             <div className="h-72">
               <ResponsiveBar
-                data={filteredGrossMarginData}
+                data={grossMarginData}
                 keys={["acquisition", "resale", "reconditioning"]}
                 indexBy="car"
-                margin={{ top: 20, right: 20, bottom: 120, left: 60 }}
+                margin={{ top: 20, right: 20, bottom: 120, left: 70 }}
                 padding={0.3}
                 colors={chartColors}
-                axisBottom={{
-                  legendPosition: "middle",
-                  legendOffset: 32,
-                  tickRotation: -90,       // rotate labels more for long names
-                  tickPadding: 10,         // space between axis and labels
-                  format: (d) =>
-                    d.length > 15 ? d.slice(0, 15) + "…" : d,  // truncate very long names
-                }}
-                axisLeft={{
-                  legend: "Amount ($)",
-                  legendPosition: "middle",
-                  legendOffset: -50,
-                }}
+                axisBottom={{ tickRotation: -90 }}
+                axisLeft={{ legend: "Amount ($)", legendOffset: -60, legendPosition: "middle" }}
                 enableLabel={false}
               />
             </div>
           </div>
-
 
           {/* Days to Sell */}
           <div className={`${glassClass} p-6`}>
             <h2 className="text-lg font-semibold text-blue-600 dark:text-emerald-400 mb-2">
               Days to Sell
             </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-              Time taken from acquisition to sale
-            </p>
             <div className="h-72">
               <ResponsiveLine
-                data={filteredDaysToSellData}
+                data={lineChartData}
                 margin={{ top: 20, right: 20, bottom: 120, left: 60 }}
                 xScale={{ type: "point" }}
-                yScale={{ type: "linear", min: "auto", max: "auto" }}
+                yScale={{ type: "linear", min: 0, max: "auto" }}
                 axisBottom={{ tickRotation: -90 }}
                 axisLeft={{ legend: "Days", legendOffset: -50, legendPosition: "middle" }}
                 colors={["#3B82F6"]}
@@ -220,12 +198,9 @@ export default function BusinessKPIPage() {
             <h2 className="text-lg font-semibold text-blue-600 dark:text-emerald-400 mb-2">
               Dealer Retention
             </h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-              Percentage of repeat vs new dealers
-            </p>
             <div className="h-72">
               <ResponsivePie
-                data={rawDealerRetentionData}
+                data={dealerRetentionData}
                 margin={{ top: 20, right: 20, bottom: 40, left: 20 }}
                 innerRadius={0.5}
                 padAngle={0.7}

@@ -1,23 +1,24 @@
 import { Schema, model, Document } from "mongoose";
 
 export interface IHeatMapDatum {
-  x: string; // region
-  y: number; // value/demand
+  region: string; // region
+  value: number; // value/demand
 }
 
 export interface IHeatMap extends Document {
   car: string;
-  data: IHeatMapDatum[];
+  demand: IHeatMapDatum[];
 }
 
 const HeatMapDatumSchema = new Schema<IHeatMapDatum>({
-  x: { type: String, required: true },
-  y: { type: Number, required: true },
+  region: { type: String, required: true },
+  value: { type: Number, required: true },
 });
 
 const HeatMapSchema = new Schema<IHeatMap>({
   car: { type: String, required: true },
-  data: { type: [HeatMapDatumSchema], required: true },
+  demand: { type: [HeatMapDatumSchema], required: true },
 });
 
-export default model<IHeatMap>("HeatMap", HeatMapSchema);
+export default model<IHeatMap>("heatmapData", HeatMapSchema, "heatmapData");
+

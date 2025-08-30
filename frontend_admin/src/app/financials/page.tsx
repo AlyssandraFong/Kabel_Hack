@@ -3,33 +3,58 @@
 import React from "react";
 import { ResponsiveBar } from "@nivo/bar";
 import { ResponsiveLine } from "@nivo/line";
+import { useEffect, useState } from "react";
 
-const rawRevenueData = [
-  { month: "Jan", resale: 40000, financing: 10000, warranties: 5000 },
-  { month: "Feb", resale: 35000, financing: 12000, warranties: 6000 },
-  { month: "Mar", resale: 45000, financing: 15000, warranties: 7000 },
-  { month: "Apr", resale: 50000, financing: 13000, warranties: 8000 },
-];
-
-const rawCashCycleData = [
-  { month: "Jan", days: 45 },
-  { month: "Feb", days: 50 },
-  { month: "Mar", days: 42 },
-  { month: "Apr", days: 48 },
-];
+interface RawRevenueData {
+  month: string;
+  resale: number;
+  financing: number;
+  warranties: number;
+}
 
 const chartColors = ["#3B82F6", "#10B981", "#F59E0B"];
 
 export default function FinancialKPIPage() {
+  const [rawRevenueData, setRawRevenueData] = useState<any[]>([]);
+  const [rawCashCycleData, setRawCashCycleData] = useState<any[]>([]);
   const glassClass =
     "!rounded-2xl !transition-all !duration-200 !ease-out relative flex flex-col gap-3 px-4 py-3 cursor-default select-none outline-none " +
     "bg-white/20 dark:bg-gray-800/30 border border-white/20 dark:border-white/10 " +
     "backdrop-blur-md hover:!bg-white/30 dark:hover:!bg-white/20 hover:scale-105 hover:shadow-xl dark:hover:shadow-white/10";
 
+    // Fetch Revenue Data
+    useEffect(() => {
+      async function fetchRevenue() {
+        try {
+          const res = await fetch("/api/revenues");
+          const data: any[] = await res.json();
+          setRawRevenueData(data);
+        } catch (error) {
+          console.error("Failed to fetch revenue data:", error);
+        }
+      }
+      fetchRevenue();
+    }, []);
+
+    // Fetch Cash Cycle Data
+    useEffect(() => {
+      async function fetchCashCycle() {
+        try {
+          const res = await fetch("/api/cashCycles");
+          const data: any[] = await res.json();
+          setRawCashCycleData(data);
+        } catch (error) {
+          console.error("Failed to fetch cash cycle data:", error);
+        }
+      }
+      fetchCashCycle();
+    }, []);
+
   const totalRevenue = rawRevenueData.reduce(
     (sum, item) => sum + item.resale + item.financing + item.warranties,
     0
   );
+
   const avgCashCycle =
     rawCashCycleData.reduce((sum, item) => sum + item.days, 0) /
     rawCashCycleData.length;
@@ -120,7 +145,7 @@ export default function FinancialKPIPage() {
                 ]}
                 margin={{ top: 20, right: 20, bottom: 40, left: 60 }}
                 xScale={{ type: "point" }}
-                yScale={{ type: "linear", min: "auto", max: "auto" }}
+                yScale={{ type: "linear", min: 0, max: "auto" }}
                 axisLeft={{ legend: "Days", legendOffset: -50, legendPosition: "middle" }}
                 colors={["#3B82F6"]}
                 pointSize={10}
@@ -136,3 +161,4 @@ export default function FinancialKPIPage() {
     </div>
   );
 }
+

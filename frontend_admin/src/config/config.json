@@ -4,7 +4,6 @@
     "base_url": "https://tf-carsome.netlify.app/",
     "base_path": "/",
     "trailing_slash": false,
-    "favicon": "/images/favicon.png",
     "logo": "/images/car_logo_dark.png",
     "logo_darkmode": "/images/car_logo_light.png",
     "logo_width": "150",

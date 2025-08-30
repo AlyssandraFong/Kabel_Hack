@@ -1,6 +1,6 @@
 "use client";
 
-import Logo from "@/components/Logo";
+import { Car } from "lucide-react";  
 import NavUser from "@/components/NavUser";
 import SearchBar from "@/components/SearchBar";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
@@ -55,7 +55,16 @@ const Header: React.FC<{ children: any }> = ({ children }) => {
     >
       <nav className="container flex items-center justify-between py-4">
         {/* Left: Logo */}
-        <Logo />
+        <Link href="/" className="flex items-center space-x-2 group">
+          <div className="relative">
+            <Car className="h-6 w-6 text-blue-500 group-hover:text-blue-400 transition-colors duration-200" />
+            <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          </div>
+          <span className="text-base font-semibold text-foreground">
+            CarMarket
+          </span>
+        </Link>
+
 
         {/* Center: Menu (desktop) */}
         <ul className="hidden md:flex items-center space-x-6 lg:space-x-8">

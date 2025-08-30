@@ -1,4 +1,4 @@
-import Cart from "@/components/cart/Cart";
+
 import OpenCart from "@/components/cart/OpenCart";
 import config from "@/config/config.json";
 import theme from "@/config/theme.json";
@@ -27,8 +27,6 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
 
-        {/* favicon */}
-        <link rel="shortcut icon" href={config.site.favicon} />
         {/* theme meta */}
         <meta name="theme-name" content="commerceplate" />
         <meta name="msapplication-TileColor" content="#000000" />

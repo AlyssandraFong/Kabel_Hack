@@ -84,12 +84,16 @@ export default function CarPricingPage() {
     "bg-white/20 dark:bg-gray-800/30 border border-white/20 dark:border-white/10 " +
     "backdrop-blur-md hover:!bg-white/30 dark:hover:!bg-white/20 hover:scale-105 hover:shadow-xl dark:hover:shadow-white/10";
 
+    const filterGlassClass =
+    "!rounded-2xl !transition-all !duration-200 !ease-out relative flex flex-col gap-3 px-6 py-5 cursor-default select-none outline-none " +
+    "bg-white/20 dark:bg-gray-800/30 border border-white/20 dark:border-white/10 ";
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-emerald-100 to-teal-100 transition-colors">
       <div className="pt-30 px-6 md:px-12 lg:px-24 pb-12">
         {/* Page Header */}
         <header className="mb-6">
-          <h1 className="text-4xl font-extrabold tracking-tight text-blue-600 dark:text-emerald-500">
+          <h1 className="text-4xl font-extrabold tracking-tight text-blue-600">
             Car Pricing Dashboard
           </h1>
           <p className="text-slate-600 dark:text-slate-400 mt-1">
@@ -99,7 +103,7 @@ export default function CarPricingPage() {
 
         {/* Filters */}
         <div className="flex flex-wrap gap-4 mb-8">
-          <div className={`${glassClass} w-52`}>
+          <div className={`${filterGlassClass} w-52`}>
             <label className="text-sm font-medium mb-1">Filter by Car</label>
             <select
               value={selectedCar}
@@ -185,14 +189,14 @@ export default function CarPricingPage() {
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
               Demand by region and car model
             </p>
-            <div className="h-80">
+            <div className="h-100">
               <ResponsiveHeatMap
                 data={heatmapData}
                 margin={{ top: 60, right: 60, bottom: 40, left: 60 }}
                 forceSquare={true}
                 colors={{ type: "diverging", scheme: "blues" }}
                 axisTop={{
-                  tickRotation: -45,
+                  tickRotation: 10,
                   legend: "Region",
                   legendPosition: "middle",
                   legendOffset: 40,

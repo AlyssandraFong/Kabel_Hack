@@ -66,13 +66,18 @@ export default function BusinessKPIPage() {
     "bg-white/20 dark:bg-gray-800/30 border border-white/20 dark:border-white/10 " +
     "backdrop-blur-md hover:!bg-white/30 dark:hover:!bg-white/20 hover:scale-105 hover:shadow-xl dark:hover:shadow-white/10";
 
+    // Filter Glass Effect Classes
+    const filterGlassClass =
+    "!rounded-2xl !transition-all !duration-200 !ease-out relative flex flex-col gap-3 px-4 py-3 cursor-default select-none outline-none " +
+    "bg-white/20 dark:bg-gray-800/30 border border-white/20 dark:border-white/10 ";
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-emerald-100 to-teal-100 transition-colors">
 
       <div className="pt-30 px-4 md:px-12 lg:px-24 pb-12">
         {/* Page Header */}
         <header className="mb-8">
-          <h1 className="text-4xl font-extrabold tracking-tight text-blue-500 dark:text-emerald-400">
+          <h1 className="text-4xl font-extrabold tracking-tight text-blue-600 dark:text-emerald-400">
             Business KPI Dashboard
           </h1>
           <p className="text-slate-600 dark:text-slate-400 mt-2">
@@ -82,7 +87,7 @@ export default function BusinessKPIPage() {
 
         {/* Filters */}
         <div className="flex flex-wrap gap-4 mb-8">
-          <div className={`${glassClass} w-52`}>
+          <div className={`${filterGlassClass} w-52`}>
             <label className="text-sm font-medium mb-1">Filter by Car</label>
             <select
               value={selectedCar}
@@ -98,7 +103,7 @@ export default function BusinessKPIPage() {
             </select>
           </div>
 
-          <div className={`${glassClass} w-52`}>
+          <div className={`${filterGlassClass} w-52`}>
             <label className="text-sm font-medium mb-1">Filter by Dealer</label>
             <select
               value={selectedDealer}
@@ -121,21 +126,21 @@ export default function BusinessKPIPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div className={glassClass}>
             <p className="text-sm text-gray-500 dark:text-gray-400">Total Gross Margin</p>
-            <h3 className="text-2xl font-bold text-blue-500 dark:text-emerald-400">
+            <h3 className="text-2xl font-bold text-blue-600 dark:text-emerald-400">
               ${totalGrossMargin.toLocaleString()}
             </h3>
           </div>
 
           <div className={glassClass}>
             <p className="text-sm text-gray-500 dark:text-gray-400">Average Days to Sell</p>
-            <h3 className="text-2xl font-bold text-blue-500 dark:text-emerald-400">
+            <h3 className="text-2xl font-bold text-blue-600 dark:text-emerald-400">
               {averageDaysToSell.toFixed(1)} days
             </h3>
           </div>
 
           <div className={glassClass}>
             <p className="text-sm text-gray-500 dark:text-gray-400">Dealer Retention</p>
-            <h3 className="text-2xl font-bold text-blue-500 dark:text-emerald-400">
+            <h3 className="text-2xl font-bold text-blue-600 dark:text-emerald-400">
               {rawDealerRetentionData.find((d) => d.id === "Repeat Dealers")?.value}%
             </h3>
           </div>
@@ -145,7 +150,7 @@ export default function BusinessKPIPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           {/* Gross Margin */}
           <div className={`${glassClass} p-6`}>
-            <h2 className="text-lg font-semibold text-blue-500 dark:text-emerald-400 mb-2">
+            <h2 className="text-lg font-semibold text-blue-600 dark:text-emerald-400 mb-2">
               Gross Margin per Car
             </h2>
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
@@ -168,7 +173,7 @@ export default function BusinessKPIPage() {
 
           {/* Days to Sell */}
           <div className={`${glassClass} p-6`}>
-            <h2 className="text-lg font-semibold text-blue-500 dark:text-emerald-400 mb-2">
+            <h2 className="text-lg font-semibold text-blue-600 dark:text-emerald-400 mb-2">
               Days to Sell
             </h2>
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
@@ -194,7 +199,7 @@ export default function BusinessKPIPage() {
 
           {/* Dealer Retention */}
           <div className={`${glassClass} p-6`}>
-            <h2 className="text-lg font-semibold text-blue-500 dark:text-emerald-400 mb-2">
+            <h2 className="text-lg font-semibold text-blue-600 dark:text-emerald-400 mb-2">
               Dealer Retention
             </h2>
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">

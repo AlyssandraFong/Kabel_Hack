@@ -17,9 +17,9 @@ export function Navbar() {
               <Car className="h-6 w-6 text-blue-500 group-hover:text-blue-400 transition-colors duration-200" />
               <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
-            <span className="text-base font-semibold text-foreground">
-              CarMarket
-            </span>
+            <div className="flex items-center space-x-2">
+              <span className="text-base font-semibold text-foreground">CarMarket Admin</span>
+            </div>
           </Link>
 
           {/* Center Menu */}

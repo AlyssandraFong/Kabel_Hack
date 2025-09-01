@@ -35,11 +35,6 @@ The system follows a three-tier architecture:
 
 ## ⚙️ Setup & Installation  
 
-
----
-
-## ⚙️ Setup & Installation  
-
 ### 1. Clone the repository  
 ```bash
 git clone <repo-url>
@@ -61,7 +56,7 @@ MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.abcd.mongodb.net/<dbnam
 ```bash
 npm run dev
 ```
-
+---
 ## 📂 Database Structure
 - Database: CarFinanceDB
 - cars – Car models and dealers.

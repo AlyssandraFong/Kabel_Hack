@@ -19,10 +19,6 @@ An **Admin Dashboard** for managing and analyzing car market data. The applicati
 - **Frontend:** React with Nivo for data visualization.  
 - **Backend:** Next.js (API routes + server logic).  
 - **Database:** MongoDB Atlas (NoSQL cloud database).  
-- **Deployment Platforms:**  
-  - Frontend – Vercel / Netlify  
-  - Backend – Render / Heroku  
-  - Database – MongoDB Atlas  
 
 ---
 

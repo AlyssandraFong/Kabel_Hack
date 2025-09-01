@@ -52,9 +52,9 @@ npm install
 ```
 
 ### 3. Configure environment variables
+In your project root, create a .env.local (for Next.js) or .env (for plain Node). Add your connection string:
 ```bash
-MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/CarFinanceDB
-PORT=3000
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.abcd.mongodb.net/<dbname>?retryWrites=true&w=majority
 ```
 
 ### 4. Run the development server
